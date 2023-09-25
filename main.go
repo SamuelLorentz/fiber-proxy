@@ -14,14 +14,13 @@ func main() {
 	app.Get("*", Forward())
 
 	// Create tls certificate
-	cer, err := tls.LoadX509KeyPair("certs/ssl.cert", "certs/ssl.key")
+	cer, err := tls.LoadX509KeyPair("certs/localhost.crt", "certs/localhost.key")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	config := &tls.Config{
-		Certificates:       []tls.Certificate{cer},
-		InsecureSkipVerify: true}
+		Certificates: []tls.Certificate{cer}}
 
 	// Create custom listener
 	ln, err := tls.Listen("tcp", ":9999", config)
